@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Chris Tulsi/Documents/Workspace/Student Scheduler/lib/activejdbc-1.4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris Tulsi/Documents/Workspace/Student Scheduler/lib/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris Tulsi/Documents/Workspace/Student Scheduler/lib/javalite-common-1.4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris Tulsi/Documents/Workspace/Student Scheduler/lib/slf4j-api-1.5.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Chris Tulsi/Documents/Workspace/Student Scheduler/lib/slf4j-simple-1.5.10.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
