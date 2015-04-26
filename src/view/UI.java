@@ -37,6 +37,7 @@ public class UI extends JFrame{
 		//JFrame properties 
 		setTitle("Student Scheduler");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(900,700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
@@ -87,6 +88,11 @@ public class UI extends JFrame{
 		calendarTable.setColumnSelectionAllowed(true);
 		calendarTable.setRowSelectionAllowed(true);
 		calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		//center table cells
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		calendarTable.setDefaultRenderer(Object.class, centerRenderer);
 
 
 		//panel1.add(new JScrollPane(table));

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Student Scheduler" default="run" basedir=".">
+	
+	<property name="dist" value="dist"/>
+    <property name="build" value="build"/>
+
+    <path id="compile_classpath">
+        <pathelement location="${build}"/>
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="build_classpath">
+        <path refid="compile_classpath"/>
+        <fileset dir="build_time_libs">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+     <path id="run_classpath">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="dist">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build}" failonerror="true"/>
+        <mkdir dir="${build}"/>
+        <delete dir="${dist}" failonerror="true"/>
+        <mkdir dir="${dist}"/>
+    </target>
+	
+     <target name="compile" depends="clean">
+        <javac srcdir="src" destdir="${build}" debug="on" optimize="off" deprecation="off" includeantruntime="false">
+            <classpath refid="compile_classpath"/>
+        </javac>
+    </target>
+
+    <target name="instrument" depends="compile">
+        <java classname="org.javalite.instrumentation.Main">
+            <sysproperty key="outputDirectory" value="${build}"/>
+            <classpath refid="build_classpath"/>
+        </java>
+    </target>
+
+    <target name="package" depends="instrument">
+        <jar destfile="${dist}/Student Scheduler.jar" basedir="${build}"/>
+    </target>
+    
+    <target name="run" depends="package">
+        <java classname="studentScheduler.StudentScheduler" failonerror="true" fork="true">
+            <jvmarg value="-Dactivejdbc.log"/>
+            <classpath refid="run_classpath"/>
+        </java>
+    </target>
+</project>
