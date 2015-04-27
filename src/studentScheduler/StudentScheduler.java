@@ -13,10 +13,12 @@ public class StudentScheduler {
 		UI.getInstance();
 		//new DBconnect(); 
 		
-		Base.open("com.sqlite.jdbc.Driver", "jdbc:sqlite:student.db", "root", "root");
+		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
 		Course e = new Course();
 		e.set("course_number", "CSI1101");
+		e.set("course_name", "Computer");
 		e.saveIt();
+	
 	}
 
 }
