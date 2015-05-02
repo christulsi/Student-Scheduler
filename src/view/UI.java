@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import controller.TimeTableHandler;
+
 public class UI extends JFrame{
 	
 	private static UI instance;
@@ -23,7 +25,7 @@ public class UI extends JFrame{
 	private JMenuItem exit;
 	private Container pane;
 	private JTabbedPane tabbedPane;
-	
+	private TimeTableHandler tableHandler;
 	
 	public UI(){
 		
@@ -31,7 +33,7 @@ public class UI extends JFrame{
 		pane = getContentPane();
 		tabbedPane = new JTabbedPane();
 		calender();
-		timeTableView();
+		addtimeTableView();
 		gpaCalculator();
 		
 		//JFrame properties 
@@ -101,22 +103,9 @@ public class UI extends JFrame{
 		pane.add(tabbedPane);
 	}
 	
-	public void timeTableView(){
+	public void addtimeTableView(){
 	  
-		JTable timeTable = new JTable(new TimeTableModel());
-		timeTable.setRowHeight(45);
-		timeTable.getTableHeader().setReorderingAllowed(false); //disables reordering of column
-		
-		//center table cells
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-		timeTable.setDefaultRenderer(Object.class, centerRenderer);
-		
-		//Set selection to single cell
-		timeTable.setColumnSelectionAllowed(true);
-		timeTable.setRowSelectionAllowed(true);
-		timeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+		TimeTable timeTable = new TimeTable();
 	    tabbedPane.addTab("Time Table", new ImageIcon("images/time.png"), new JScrollPane(timeTable), "TimeTable");		
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);			//ALT + 2
 	}
