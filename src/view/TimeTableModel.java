@@ -1,14 +1,14 @@
 package view;
 
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-
-import controller.TimeTableHandler;
 	
 public class TimeTableModel extends AbstractTableModel{
 	
 	private String[] columnNames = {"Time", "Monday","Tuesday","Wednesday",
             "Thursday", "Friday","Saturday"};
-	
+
 	private Object[][] data = {
 		    {"8:15-9:10"  , null, null, null, null,  null, null},
 		    {"9:15-10:10" , null, null, null, null,  null, null},

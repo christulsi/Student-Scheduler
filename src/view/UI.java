@@ -64,7 +64,8 @@ public class UI extends JFrame{
 		file.addSeparator();
 		exit = new JMenuItem("Exit");
 		file.add(exit);
-			
+		
+		
 	}
 	
 	public void calender(){
@@ -98,7 +99,7 @@ public class UI extends JFrame{
 
 
 		//panel1.add(new JScrollPane(table));
-		tabbedPane.addTab("Calender",new ImageIcon("images/calendar.png"), new JScrollPane(calendarTable),"Calendar");
+		tabbedPane.addTab("Calender",new ImageIcon("images/calendar.png"), new JScrollPane(new Calendar()),"Calendar");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		pane.add(tabbedPane);
 	}
@@ -111,7 +112,7 @@ public class UI extends JFrame{
 	}
 	
 	public void gpaCalculator(){
-	
+		
 		String[] columnNames = {"Course", "Course Name","M/O","Credit","Grade","Points"};
 		Object[][] data = {
 			    {"", null, null, null, null,null},
