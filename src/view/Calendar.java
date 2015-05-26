@@ -133,7 +133,7 @@ public class Calendar extends JPanel implements ActionListener{
         } //Too late
 
         month.setText(months[selectedMonth]);
-        month.setBounds(160 - month.getPreferredSize().width / 2, 25, 180, 25);
+        month.setBounds(660 , 25, 100, 25);
         yearMenu.setSelectedItem(String.valueOf(selectedYear));
 
         GregorianCalendar newCalendar = new GregorianCalendar(selectedYear, selectedMonth, 1);

@@ -8,11 +8,14 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
+import org.javalite.activejdbc.Base;
+
 import controller.TimeTableHandler;
 
 public class TimeTable extends JTable{
 	
 	public TimeTable(){
+		
 		setModel(new TimeTableModel());
 		setRowHeight(45);
 		getTableHeader().setReorderingAllowed(false);
@@ -26,7 +29,7 @@ public class TimeTable extends JTable{
 			
 			@Override
 			public void tableChanged(TableModelEvent e) {
-				int row = e.getFirstRow();  
+				int row = e.getLastRow();  
 		        int col = e.getColumn();  
 		        String colName = getColumnName(col);
 		        TableModel model = (TableModel)e.getSource();  
