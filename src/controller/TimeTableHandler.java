@@ -31,31 +31,30 @@ public class TimeTableHandler{
         }
 	}
 
-    public void updateCourseName(String name,int row, String col){
+    public boolean updateCourseName(String name,int row, String col){
     	
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
 			CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
-			System.out.println(e.get("course_number").toString());
-			e.set("course_number",name).saveIt();
 			
-			System.out.println(name+"looooooooooooooooo");
+			if(e == null)
+				return false;
+			e.set("course_number",name).saveIt();
 			
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}finally{
 			Base.close();
 		}
-	
 		
+		return true;
     }
     
 public void deleteCourseTime(int row, String col){
     	
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			List<CourseTime> courseTime = CourseTime.where("time = ? AND day = ?",row, col);
-			CourseTime e = courseTime.get(0);
+    		CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
 			e.delete();
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -77,7 +76,7 @@ public void deleteCourseTime(int row, String col){
 		} catch (Exception e) {	
 			e.printStackTrace(); 
 		}finally{
-		Base.close();
+			Base.close();
         }
 		
 		return "";

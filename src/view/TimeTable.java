@@ -35,7 +35,11 @@ public class TimeTable extends JTable{
 		        TableModel model = (TableModel)e.getSource();  
 		        Object data = model.getValueAt(row, col);
 				
-		        TimeTableHandler.getInstance().updateCourseName(data.toString(), row, colName);
+		        if(data.equals("")){
+		        	TimeTableHandler.getInstance().deleteCourseTime(row, colName);
+		        }else if(!TimeTableHandler.getInstance().updateCourseName(data.toString(), row, colName)){
+		        	TimeTableHandler.getInstance().createCourseTime(data.toString(), row, colName);
+		        }
 			}
 		});
 				
