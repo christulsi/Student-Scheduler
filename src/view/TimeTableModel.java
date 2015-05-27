@@ -3,6 +3,9 @@ package view;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+import controller.TimeTableHandler;
 	
 public class TimeTableModel extends AbstractTableModel{
 	
@@ -64,4 +67,26 @@ public class TimeTableModel extends AbstractTableModel{
         fireTableCellUpdated(row, col);
     }
 	
+	@Override
+	public void addTableModelListener(TableModelListener l) {
+		
+		super.addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				int row = e.getLastRow();  
+		        int col = e.getColumn();  
+		        String colName = getColumnName(col);
+		        TableModel model = (TableModel)e.getSource();  
+		        Object data = model.getValueAt(row, col);
+				
+		        if(data.equals("")){
+		        	TimeTableHandler.getInstance().deleteCourseTime(row, colName);
+		        }else if(!TimeTableHandler.getInstance().updateCourseName(data.toString(), row, colName)){
+		        	TimeTableHandler.getInstance().createCourseTime(data.toString(), row, colName);
+		        }
+			}
+		});
+	}
+
 }

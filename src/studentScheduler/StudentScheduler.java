@@ -1,14 +1,14 @@
 package studentScheduler;
 
-import org.javalite.activejdbc.Base;
-
 import view.UI;
+import controller.Notificator;
 
 public class StudentScheduler {
 
 	public static void main(String[] args) {
 		
-		UI.getInstance(); 
+		UI.getInstance();
+		//new Notificator().start();
 
 	}
 	

@@ -24,24 +24,6 @@ public class TimeTable extends JTable{
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 		setDefaultRenderer(Object.class, centerRenderer);
-		
-		this.getModel().addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				int row = e.getLastRow();  
-		        int col = e.getColumn();  
-		        String colName = getColumnName(col);
-		        TableModel model = (TableModel)e.getSource();  
-		        Object data = model.getValueAt(row, col);
-				
-		        if(data.equals("")){
-		        	TimeTableHandler.getInstance().deleteCourseTime(row, colName);
-		        }else if(!TimeTableHandler.getInstance().updateCourseName(data.toString(), row, colName)){
-		        	TimeTableHandler.getInstance().createCourseTime(data.toString(), row, colName);
-		        }
-			}
-		});
 				
 		//Set selection to single cell
 		setColumnSelectionAllowed(true);

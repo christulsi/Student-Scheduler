@@ -112,33 +112,9 @@ public class UI extends JFrame{
 	}
 	
 	public void gpaCalculator(){
-		
-		String[] columnNames = {"Course", "Course Name","M/O","Credit","Grade","Points"};
-		Object[][] data = {
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			    {"", null, null, null, null,null},
-			};
-		
-		JTable table = new JTable(data, columnNames);
-		table.setRowHeight(45);
-		table.getTableHeader().setReorderingAllowed(false); //disables reordering of column
-		
-		//center table cells
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-		table.setDefaultRenderer(Object.class, centerRenderer);
-		
-		//Set selection to single cell
-		table.setColumnSelectionAllowed(true);
-		table.setRowSelectionAllowed(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		tabbedPane.addTab("GPA Calulator",new ImageIcon("images/gpa.png"),new JScrollPane(table),"GPA Calculator");
+			
+		GPACalculator gpa = new GPACalculator();
+		tabbedPane.addTab("GPA Calulator",new ImageIcon("images/gpa.png"),new JScrollPane(gpa),"GPA Calculator");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);			//ALT + 2
 	}
 	
