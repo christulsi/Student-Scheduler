@@ -42,7 +42,7 @@ public class GPACalculator extends JPanel{
 	private void createCourse(){
 		
 		JTable course = new JTable(new CourseTableModel());
-		course.setRowHeight(35);
+		course.setRowHeight(30);
 		course.getTableHeader().setReorderingAllowed(false); //disables reordering of column
 		
 		//center table cells

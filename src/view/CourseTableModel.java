@@ -14,7 +14,7 @@ import model.Course;
 
 public class CourseTableModel extends AbstractTableModel{
 	
-	String[] columnNames = {"Course Number", "Course Name","M/O","Credit","Grade","Points"};
+	private String[] columnNames = {"Course Number", "Course Name","M/O","Credit","Grade","Points"};
 
 	@Override
 	public int getColumnCount() {
@@ -56,31 +56,13 @@ public class CourseTableModel extends AbstractTableModel{
 	public Object getValueAt(int row, int col) {
 		return GPACalculatorHandler.getInstance().getCourseInfo(row, col);
 	}
-	
-	public void setValueAt(Object value, int row, int col) {
 		
-        fireTableCellUpdated(row, col);
-    }
-	
 	@Override
-	public void addTableModelListener(TableModelListener l) {
+	public void setValueAt(Object data, int row, int col) {
 		
-		super.addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				int row = e.getLastRow();  
-		        int col = e.getColumn();  
-		        TableModel model = (TableModel)e.getSource();  
-		        Object data = model.getValueAt(row, col);
-			
-		        if(data.equals("")){
-		        	//GPACalculatorHandler.getInstance().deleteCourseTime(row, col);
-		        }else if(!GPACalculatorHandler.getInstance().updateCourseName(data.toString(), row, col)){
-		        	//GPACalculatorHandler.getInstance().createCourseTime(data.toString(), row, col);
-		        }
-			}
-		});
+		GPACalculatorHandler.getInstance().updateCourseName(data.toString(), row, col);
+		fireTableCellUpdated(row, col);
+		fireTableDataChanged();
 	}
 
 }

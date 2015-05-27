@@ -1,5 +1,7 @@
 package view;
 
+import java.time.LocalTime;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
@@ -13,20 +15,20 @@ public class TimeTableModel extends AbstractTableModel{
             "Thursday", "Friday","Saturday"};
 
 	private Object[][] data = {
-		    {"8:15-9:10"  , null, null, null, null,  null, null},
-		    {"9:15-10:10" , null, null, null, null,  null, null},
-		    {"10:15-11:10", null, null, null, null,  null, null},
-		    {"11:15-12:10", null, null, null, null,  null, null},
-		    {"12:15-1:10" , null, null, null, null,  null, null},
-		    {"13:15-14:10", null, null, null, null,  null, null},
-		    {"14:15-15:10", null, null, null, null,  null, null},
-		    {"15:15-16:10", null, null, null, null,  null, null},
-		    {"16:15-17:10", null, null, null, null,  null, null},
-		    {"17:15-18:10", null, null, null, null,  null, null},
-		    {"18:15-19:10", null, null, null, null,  null, null},
-		    {"19:15-20:10", null, null, null, null,  null, null},
-		    {"20:15-21:10", null, null, null, null,  null, null},
-		    {"21:15-22:10", null, null, null, null,  null, null},
+		    {LocalTime.of(8, 15) , null, null, null, null,  null, null},
+		    {LocalTime.of(9, 15) , null, null, null, null,  null, null},
+		    {LocalTime.of(10, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(11, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(12, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(13, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(14, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(15, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(16, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(17, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(18, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(19, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(20, 15), null, null, null, null,  null, null},
+		    {LocalTime.of(21, 15), null, null, null, null,  null, null},
 		};
 	
 	@Override
@@ -78,12 +80,13 @@ public class TimeTableModel extends AbstractTableModel{
 		        int col = e.getColumn();  
 		        String colName = getColumnName(col);
 		        TableModel model = (TableModel)e.getSource();  
+		        LocalTime time = (LocalTime)model.getValueAt(row, 0);
 		        Object data = model.getValueAt(row, col);
 				
 		        if(data.equals("")){
-		        	TimeTableHandler.getInstance().deleteCourseTime(row, colName);
-		        }else if(!TimeTableHandler.getInstance().updateCourseName(data.toString(), row, colName)){
-		        	TimeTableHandler.getInstance().createCourseTime(data.toString(), row, colName);
+		        	TimeTableHandler.getInstance().deleteCourseTime(time, colName);
+		        }else if(!TimeTableHandler.getInstance().updateCourseName(data.toString(), time, colName)){
+		        	TimeTableHandler.getInstance().createCourseTime(data.toString(), time, colName);
 		        }
 			}
 		});

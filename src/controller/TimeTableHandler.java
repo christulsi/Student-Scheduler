@@ -1,10 +1,11 @@
 package controller;
 
+import java.time.LocalTime;
 import java.util.List;
 
-import org.javalite.activejdbc.Base;
-
 import model.CourseTime;
+
+import org.javalite.activejdbc.Base;
 
 public class TimeTableHandler{
 	
@@ -19,7 +20,7 @@ public class TimeTableHandler{
 	
 	public TimeTableHandler(){}
 	
-	public void createCourseTime(String number, int row, String col){
+	public void createCourseTime(String number, LocalTime row, String col){
 		//DB may thrown table constraint exception
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
@@ -31,7 +32,7 @@ public class TimeTableHandler{
         }
 	}
 
-    public boolean updateCourseName(String name,int row, String col){
+    public boolean updateCourseName(String name,LocalTime row, String col){
     	
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
@@ -50,11 +51,11 @@ public class TimeTableHandler{
 		return true;
     }
     
-public void deleteCourseTime(int row, String col){
+public void deleteCourseTime(LocalTime row, String col){
     	
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-    		CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
+    		CourseTime e = CourseTime.findFirst("time = ? AND day = ?", row, col);
 			e.delete();
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -63,12 +64,11 @@ public void deleteCourseTime(int row, String col){
         }
 	}
     
-    public String getCourseName(int row, String col){
+    public String getCourseName(LocalTime row, String col){
     	//DB may throw null pointer exception
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			List<CourseTime> courseTime = CourseTime.where("time = ? AND day = ?",row, col);
-			CourseTime e = courseTime.get(0);
+			CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
 			String coursenum = e.get("course_number").toString();
 				
 			if(!coursenum.equals(null))

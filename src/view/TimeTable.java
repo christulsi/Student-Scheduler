@@ -1,14 +1,11 @@
 package view;
 
+import java.time.LocalTime;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
-
-import org.javalite.activejdbc.Base;
 
 import controller.TimeTableHandler;
 
@@ -37,7 +34,8 @@ public class TimeTable extends JTable{
 		//retrieve values from database 
 		for (int i = 1; i < 7; i++) {
 			for (int j = 0; j < this.getRowCount(); j++) {	
-				this.setValueAt(TimeTableHandler.getInstance().getCourseName(j , getColumnName(i)), j, i);
+				LocalTime time =(LocalTime) getModel().getValueAt(j,0);
+				this.setValueAt(TimeTableHandler.getInstance().getCourseName(time , getColumnName(i)), j, i);
 			}
 		}
 	}

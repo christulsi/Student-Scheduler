@@ -49,8 +49,16 @@ public class GPACalculatorHandler {
 			case 3: course.get(row).set("credit",change).saveIt();
 					break;
 			case 4: course.get(row).set("grade",change).saveIt();
-					break;
-			case 5: course.get(row).set("points",change).saveIt();
+					if(course.get(row).get("grade").equals("A"))
+						course.get(row).set("points",16).saveIt();
+					else if(course.get(row).get("grade").equals("B"))
+						course.get(row).set("points",12).saveIt();
+					else if(course.get(row).get("grade").equals("C"))
+						course.get(row).set("points",8).saveIt();
+					else if(course.get(row).get("grade").equals("D"))
+						course.get(row).set("points",4).saveIt();
+					else if(course.get(row).get("grade").equals("F"))
+						course.get(row).set("points",0).saveIt();
 					break;
 			}
 			return false;
