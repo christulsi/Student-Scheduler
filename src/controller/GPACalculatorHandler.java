@@ -20,7 +20,7 @@ public class GPACalculatorHandler {
 	
 	public GPACalculatorHandler(){}
 	
-	public void createCourseGrade(String number,String name,int credit,String m_o, String grade, int points){
+	public void create(String number,String name,int credit,String m_o, String grade, int points){
 		//DB may thrown table constraint exception
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
@@ -32,8 +32,31 @@ public class GPACalculatorHandler {
 			Base.close();
         }
 	}
+	
+	public Object read(int row, int col){
+    	//DB may throw null pointer exception
+		try {
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			List<Course> course = Course.findAll();
+			
+			switch(col){
+			case 0: return course.get(row).get("course_number");
+			case 1: return course.get(row).get("course_name");
+			case 2: return course.get(row).get("m_o");
+			case 3: return course.get(row).get("credit");
+			case 4: return course.get(row).get("grade");
+			case 5: return course.get(row).get("points");
+			}
+		} catch (Exception e) {	
+			e.printStackTrace(); 
+		}finally{
+			Base.close();
+        }
+		
+		return null;
+    }
 
-    public boolean updateCourseName(String change, int row, int col){
+    public boolean update(String change, int row, int col){
     	
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
@@ -72,7 +95,7 @@ public class GPACalculatorHandler {
 		return true;
     }
     
-public void deleteCourseTime(int row, String col){
+    public void delete(int row, String col){
     	
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
@@ -85,26 +108,5 @@ public void deleteCourseTime(int row, String col){
         }
 	}
     
-    public Object getCourseInfo(int row, int col){
-    	//DB may throw null pointer exception
-		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			List<Course> course = Course.findAll();
-			
-			switch(col){
-			case 0: return course.get(row).get("course_number");
-			case 1: return course.get(row).get("course_name");
-			case 2: return course.get(row).get("m_o");
-			case 3: return course.get(row).get("credit");
-			case 4: return course.get(row).get("grade");
-			case 5: return course.get(row).get("points");
-			}
-		} catch (Exception e) {	
-			e.printStackTrace(); 
-		}finally{
-			Base.close();
-        }
-		
-		return null;
-    }
+    
 }

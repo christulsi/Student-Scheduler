@@ -1,7 +1,6 @@
 package studentScheduler;
 
 import view.UI;
-import controller.Notificator;
 
 public class StudentScheduler {
 
