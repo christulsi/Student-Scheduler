@@ -10,6 +10,7 @@ import javax.swing.table.TableModel;
 import org.javalite.activejdbc.Base;
 
 import controller.GPACalculatorHandler;
+import controller.StudentHandler;
 import model.Course;
 
 public class CourseTableModel extends AbstractTableModel{
@@ -70,5 +71,7 @@ public class CourseTableModel extends AbstractTableModel{
 		GPACalculatorHandler.getInstance().update(data.toString(), row, col);
 		fireTableCellUpdated(row, col);	//refresh cell
 		fireTableDataChanged();			//refreshes table
+		StudentHandler.getInstance().update();	
+	
 	}
 }

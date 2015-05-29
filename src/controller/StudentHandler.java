@@ -7,6 +7,8 @@ import model.Student;
 
 import org.javalite.activejdbc.Base;
 
+import view.GPATableModel;
+
 public class StudentHandler {
 	
 	private static StudentHandler instance;
@@ -22,12 +24,18 @@ public class StudentHandler {
 	
 	public void create(){
 		
+		double gpa = GPACalculatorHandler.getInstance().calculateGPA();
+		double major = GPACalculatorHandler.getInstance().calculateMajorGPA();
+		double other = GPACalculatorHandler.getInstance().calculateOtherGPA();
+		
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			Student.createIt("overall_gpa", GPACalculatorHandler.getInstance().calculateGPA()
-					, "major_gpa", GPACalculatorHandler.getInstance().calculateMajorGPA()
-					, "other_gpa", GPACalculatorHandler.getInstance().calculateOtherGPA());
-			
+			Student e = Student.findById(1);
+			if(e == null){
+				Student.createIt("overall_gpa", gpa
+						, "major_gpa", major
+						, "other_gpa", other);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -41,12 +49,13 @@ public class StudentHandler {
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
 			List<String> attribute = Student.attributes();
+			Student student = Student.findById(1);
 			
 			if(col == 0) return attribute.get(row+1).toUpperCase();
-			
-			return null;
-			
-			
+			else if(row == 0) return student.get(attribute.get(row+1)).toString();
+			else if(row == 1) return student.get(attribute.get(row+1)).toString();
+			else if(row == 2) return student.get(attribute.get(row+1)).toString();
+					
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -57,15 +66,17 @@ public class StudentHandler {
 	}
 	
 	public void update(){
+		double gpa = GPACalculatorHandler.getInstance().calculateGPA();
+		double major = GPACalculatorHandler.getInstance().calculateMajorGPA();
+		double other = GPACalculatorHandler.getInstance().calculateOtherGPA();
 		
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			List<Student> students = Student.findAll();
-			Student e = students.get(0);
-			e.set("overall_gpa", GPACalculatorHandler.getInstance().calculateGPA()
-				, "major_gpa", GPACalculatorHandler.getInstance().calculateMajorGPA()
-				, "other_gpa", GPACalculatorHandler.getInstance().calculateOtherGPA())
-			  .saveIt();
+			Student e = Student.findById(1);
+			e.set("overall_gpa", gpa).set("major_gpa", major)
+				.set("other_gpa", other).saveIt();
+			Thread.sleep(500);
+			GPATableModel.getInstance().fireTableDataChanged();
 			
 		} catch (Exception e) {	
 			e.printStackTrace();
@@ -78,8 +89,7 @@ public class StudentHandler {
 		
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-			List<Student> students = Student.find("id =?", 1);
-			Student e = students.get(0);
+			Student e = Student.findById(1);
 			e.delete();
 			
 		} catch (Exception e) {	

@@ -20,8 +20,24 @@ public class GPACalculatorHandler {
 	
 	public GPACalculatorHandler(){}
 	
-	public void create(String number,String name,int credit,String m_o, String grade, int points){
+	public void create(String number,String name,int credit,String m_o, String grade){
 		//DB may thrown table constraint exception
+		int points = 0;
+		
+		switch (grade) {
+		case "A": points = 16;
+			break;
+		case "B": points = 12;
+			break;
+		case "C": points = 8;
+			break;
+		case "D": points = 4;
+			break;
+
+		default: points = 0;
+			break;
+		}
+		
 		try {
 			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
 			Course.createIt("course_number", number, "course_name", name, "credit", credit,
@@ -108,9 +124,9 @@ public class GPACalculatorHandler {
         }
 	}
     
-    public float calculateGPA(){
+    public double calculateGPA(){
     	
-    	float sum = 0; 
+    	double sum = 0; 
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
     		List<Course> course = Course.findAll();
@@ -127,13 +143,12 @@ public class GPACalculatorHandler {
 		}finally{
 			Base.close();
         }
-    	
     	return sum;
 	}
     
-    public float calculateMajorGPA(){
+    public double calculateMajorGPA(){
     	
-    	float sum = 0; 
+    	double sum = 0; 
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
     		List<Course> course = Course.find("m_o= ?", "M");
@@ -150,16 +165,15 @@ public class GPACalculatorHandler {
 		}finally{
 			Base.close();
         }
-    	
     	return sum;
 	}
     
-    public float calculateOtherGPA(){
+    public double calculateOtherGPA(){
     	
-    	float sum = 0; 
+    	double sum = 0; 
     	try {
     		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
-    		List<Course> course = Course.find("m_o", "O");
+    		List<Course> course = Course.find("m_o = ?", "O");
 			
     		for (Course course2 : course) {
     			int point = (int)course2.get("points");

@@ -1,6 +1,7 @@
 package studentScheduler;
 
 import view.UI;
+import controller.StudentHandler;
 
 public class StudentScheduler {
 
@@ -8,7 +9,7 @@ public class StudentScheduler {
 		
 		UI.getInstance();
 		//new Notificator().start();
-
+		
 	}
 	
 }
