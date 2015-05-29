@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import controller.StudentHandler;
 import model.Course;
+import model.Student;
 
 public class GPATableModel extends AbstractTableModel{
 	
@@ -30,7 +32,12 @@ public class GPATableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int row, int col) {
 
-		return null;
+		return StudentHandler.getInstance().read(row, col);
 	}
+	
+	@Override
+	public String getColumnName(int col) {
+        return null;
+    }
 
 }

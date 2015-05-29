@@ -108,5 +108,74 @@ public class GPACalculatorHandler {
         }
 	}
     
+    public float calculateGPA(){
+    	
+    	float sum = 0; 
+    	try {
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		List<Course> course = Course.findAll();
+			
+    		for (Course course2 : course) {
+    			int point = (int)course2.get("points");
+    			sum += point;
+			}		
+    		
+    		sum /= (course.size()*4);
+    		
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}finally{
+			Base.close();
+        }
+    	
+    	return sum;
+	}
+    
+    public float calculateMajorGPA(){
+    	
+    	float sum = 0; 
+    	try {
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		List<Course> course = Course.find("m_o= ?", "M");
+			
+    		for (Course course2 : course) {
+    			int point = (int)course2.get("points");
+    			sum += point;
+			}		
+    		
+    		sum /= (course.size()*4);
+    		
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}finally{
+			Base.close();
+        }
+    	
+    	return sum;
+	}
+    
+    public float calculateOtherGPA(){
+    	
+    	float sum = 0; 
+    	try {
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		List<Course> course = Course.find("m_o", "O");
+			
+    		for (Course course2 : course) {
+    			int point = (int)course2.get("points");
+    			sum += point;
+			}		
+    		
+    		sum /= (course.size()*4);
+    		
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}finally{
+			Base.close();
+        }
+    	
+    	return sum;
+	}
+    
     
 }
