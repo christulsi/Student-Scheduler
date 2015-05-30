@@ -8,7 +8,7 @@ public class StudentScheduler {
 	public static void main(String[] args) {
 		
 		UI.getInstance();
-		//new Notificator().start();
+		new Notificator().start();
 		
 	}
 	

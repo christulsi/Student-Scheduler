@@ -23,7 +23,7 @@ private static CalendarHandler instance;
 	public void createCourseGrade(String number,int date){
 		//DB may thrown table constraint exception
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			Course.createIt("course_number", number, "date", date);
 		} catch (Exception e) {	
 			e.printStackTrace();
@@ -35,7 +35,7 @@ private static CalendarHandler instance;
     public boolean updateCourseName(String number){
     	
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			Course e = CourseTime.findFirst("course_number = ? ", number);
 			
 			if(e == null)
@@ -54,7 +54,7 @@ private static CalendarHandler instance;
 public void deleteCourseTime(int row, String col){
     	
     	try {
-    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
     		CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
 			e.delete();
 		} catch (Exception e) { 
@@ -67,7 +67,7 @@ public void deleteCourseTime(int row, String col){
     public String getCourseName(String number){
     	//DB may throw null pointer exception
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			List<CourseTime> courseTime = CourseTime.where("course_number = ? ", number);
 			CourseTime e = courseTime.get(0);
 			String coursenum = e.get("course_number").toString();

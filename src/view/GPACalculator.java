@@ -42,15 +42,20 @@ public class GPACalculator extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				//Added JOption Pane
 				AddCourse addPanel = new AddCourse();
 				
 				int result = JOptionPane.showConfirmDialog(null, addPanel, 
 			               "Add Course", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+				  //check Option and perforn action
 			      if (result == JOptionPane.OK_OPTION) {
 			    	  GPACalculatorHandler.getInstance().create(addPanel.getCourseNumber().getText(), addPanel.getCourseName().getText(), 
-			    			  Integer.parseInt(addPanel.getCredits().getText()), addPanel.getM_o().getText(), addPanel.getGrade().getText());
-			    	  courseModel.fireTableDataChanged(); 	  
-     		    	  StudentHandler.getInstance().update();
+			    			  Integer.parseInt(addPanel.getCredits().getText()), addPanel.getM_o().getSelectedItem().toString(), 
+			    			  addPanel.getGrade().getSelectedItem().toString());
+			    	  
+			    	  courseModel.fireTableDataChanged();	//refreshes Course Table
+     		    	  StudentHandler.getInstance().update(); //Update GPA
+     		    	 
 			      }
 				
 			}

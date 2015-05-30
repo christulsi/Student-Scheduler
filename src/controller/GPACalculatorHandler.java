@@ -39,7 +39,7 @@ public class GPACalculatorHandler {
 		}
 		
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			Course.createIt("course_number", number, "course_name", name, "credit", credit,
 					"m_o", m_o, "grade", grade,"points", points );
 		} catch (Exception e) {	
@@ -52,7 +52,7 @@ public class GPACalculatorHandler {
 	public Object read(int row, int col){
     	//DB may throw null pointer exception
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			List<Course> course = Course.findAll();
 			
 			switch(col){
@@ -75,7 +75,7 @@ public class GPACalculatorHandler {
     public boolean update(String change, int row, int col){
     	
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			List<Course> course = Course.findAll();
 			
 			switch(col){
@@ -114,7 +114,7 @@ public class GPACalculatorHandler {
     public void delete(int row, String col){
     	
     	try {
-    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
     		CourseTime e = CourseTime.findFirst("time = ? AND day = ?",row, col);
 			e.delete();
 		} catch (Exception e) { 
@@ -128,7 +128,7 @@ public class GPACalculatorHandler {
     	
     	double sum = 0; 
     	try {
-    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
     		List<Course> course = Course.findAll();
 			
     		for (Course course2 : course) {
@@ -150,7 +150,7 @@ public class GPACalculatorHandler {
     	
     	double sum = 0; 
     	try {
-    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
     		List<Course> course = Course.find("m_o= ?", "M");
 			
     		for (Course course2 : course) {
@@ -172,7 +172,7 @@ public class GPACalculatorHandler {
     	
     	double sum = 0; 
     	try {
-    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+    		Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
     		List<Course> course = Course.find("m_o = ?", "O");
 			
     		for (Course course2 : course) {

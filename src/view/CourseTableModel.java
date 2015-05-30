@@ -29,7 +29,7 @@ public class CourseTableModel extends AbstractTableModel{
 	public int getRowCount() {
 		int i = 0;
 		try {
-			Base.open("org.sqlite.JDBC", "jdbc:sqlite:student.db", "root", "root");
+			Base.open("org.sqlite.JDBC", "jdbc:sqlite:resources/student.db", "root", "root");
 			List<Course> course = Course.findAll();
 			i = course.toArray().length;
 		} catch (Exception e) {

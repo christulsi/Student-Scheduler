@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Container;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -27,7 +28,7 @@ public class UI extends JFrame{
 	private JTabbedPane tabbedPane;
 	private TimeTableHandler tableHandler;
 	
-	public UI(){
+	private UI(){
 		
 		createMenu(); //create menu
 		pane = getContentPane();
@@ -63,12 +64,15 @@ public class UI extends JFrame{
 		
 		file.addSeparator();
 		exit = new JMenuItem("Exit");
+		//create and add ActionListener using Lamdha expression
+		ActionListener act = (e) -> System.exit(0);
+		exit.addActionListener(act);
 		file.add(exit);
 		
 		
 	}
 	
-	public void calender(){
+	private void calender(){
 		
 		String[] calendarColumnNames = {"Sunday", "Monday","Tuesday","Wednesday",
                 "Thursday", "Friday","Saturday"};
@@ -99,24 +103,26 @@ public class UI extends JFrame{
 
 
 		//panel1.add(new JScrollPane(table));
-		tabbedPane.addTab("Calender",new ImageIcon("images/calendar.png"), new JScrollPane(new Calendar()),"Calendar");
+		tabbedPane.addTab("Calender",new ImageIcon("resources/images/calendar.png"), new JScrollPane(new Calendar()),"Calendar");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		pane.add(tabbedPane);
 	}
 	
-	public void addtimeTableView(){
+	private void addtimeTableView(){
 	  
 		TimeTable timeTable = new TimeTable();
-	    tabbedPane.addTab("Time Table", new ImageIcon("images/time.png"), new JScrollPane(timeTable), "TimeTable");		
+	    tabbedPane.addTab("Time Table", new ImageIcon("resources/images/time.png"), new JScrollPane(timeTable), "TimeTable");		
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);			//ALT + 2
 	}
 	
-	public void gpaCalculator(){
+	private void gpaCalculator(){
 			
 		GPACalculator gpa = new GPACalculator();
-		tabbedPane.addTab("GPA Calulator",new ImageIcon("images/gpa.png"),new JScrollPane(gpa),"GPA Calculator");
+		tabbedPane.addTab("GPA Calulator",new ImageIcon("resources/images/gpa.png"),new JScrollPane(gpa),"GPA Calculator");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);			//ALT + 2
 	}
 	
-	
+	public void refresh(){
+		repaint();
+	}
 }
